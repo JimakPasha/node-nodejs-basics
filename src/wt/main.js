@@ -19,12 +19,12 @@ const performCalculations = async () => {
            });
 
            worker.on('message', data => {
-               resolve({status: 'resolved', data});
+               resolve({ status: 'resolved', data });
                worker.terminate();
            });
 
            worker.on('error', () => {
-               resolve({status: 'error', data: null});
+               resolve({ status: 'error', data: null });
                worker.terminate();
            });
        })
