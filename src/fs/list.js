@@ -1,5 +1,23 @@
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { access, constants, readdir } from 'node:fs';
+
 const list = async () => {
-    // Write your code here 
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
+    const folderPath = join(__dirname, 'files');
+
+    access(folderPath, constants.F_OK, (err) => {
+        if(err) {
+            throw new Error('FS operation failed'); 
+        } else {
+            readdir(folderPath, ((err, files) => {
+                if(err) throw err
+                files.forEach((item) => console.log(item))
+            })
+            ) 
+        }
+    })
 };
 
 await list();
